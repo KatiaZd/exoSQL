@@ -128,6 +128,10 @@ where h.nom = 'Goudurix';
 select min(date_prise)
 from trophee;
 
+-- format jj/mm/aaaa
+select to_char(min(date_prise), 'dd/mm/yyyy') as date_prise
+from trophee;
+
 --21. Nombre de louches de Potion magique n°2 (c'est le libellé de la potion) absorbées. (19)
 select sum(a.quantite) 
 from absorber a
@@ -144,7 +148,6 @@ from village v
 join habitant h on v.num_village = h.num_village
 group by v.nom_village
 order by nombre_d_habitants;
-
 
 --24. Nombre de trophées par habitant (6 lignes)
 select distinct  h.nom, count(t.num_trophee) AS nombre_de_trophees
