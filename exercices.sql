@@ -169,11 +169,12 @@ join potion p on a.num_potion = p.num_potion
 group by h.nom
 order by nombre_de_potions desc;
 
-
 --27. Nom des habitants ayant bu plus de 2 louches de potion zen. (1 ligne)
+select nom h from habitant h
+join absorber a on h.num_hab  = a.num_hab
+join potion p on a.num_potion  = p.num_potion
+where a.quantite > 2 and  p.lib_potion  = 'Potion Zen';
 
-
---***
 --28. Noms des villages dans lesquels on trouve une resserre (3 lignes)
 select distinct v.nom_village
 from village v
@@ -186,4 +187,9 @@ order by nb_huttes desc
 limit 1;
 
 --30. Noms des habitants ayant pris plus de trophées qu'Obélix (3 lignes).
-
+select h.nom from habitant h
+join trophee t on t.num_preneur  = h.num_hab
+group by h.nom
+having count(num_trophee) > (select count(num_trophee) from trophee t 
+join habitant h on t.num_preneur = h.num_hab
+where h.nom = 'Obélix');
